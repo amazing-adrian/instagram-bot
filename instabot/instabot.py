@@ -8,7 +8,8 @@ def main():
 
     bot.explore_tags()
     bot.follow_users()
-    bot.unfollow_users()    
+    bot.unfollow_users()
+    print("All done!")
 
 
 

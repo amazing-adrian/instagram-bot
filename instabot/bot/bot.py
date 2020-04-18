@@ -5,10 +5,12 @@ from conf.cfg import *
 import datetime as dt
 import pandas as pd
 import random
+import os.path
 
 class Bot:
     def __init__(self, usr, pwd):
-        chromedriver_path = 'E:\\Workspace\\Python\\instabot\\bin\\chromedriver.exe'
+        self.project_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        chromedriver_path = self.project_path + '\\bin\\chromedriver.exe'
         options = Options()
         options.headless = False
         options.add_argument('window-size=1920x1080')
@@ -18,9 +20,9 @@ class Bot:
         print('Opened Chrome!')
         sleep(2)
 
-        self.likes = pd.read_csv("../data/logs/likes.csv")
-        self.follows = pd.read_csv("../data/logs/follows.csv")
-        self.unfollows = pd.read_csv("../data/logs/unfollows.csv")
+        self.likes = pd.read_csv(f"{self.project_path}/data/logs/likes.csv")
+        self.follows = pd.read_csv(f"{self.project_path}/data/logs/follows.csv")
+        self.unfollows = pd.read_csv(f"{self.project_path}/data/logs/unfollows.csv")
         self.__login(usr, pwd)
 
     def __login(self, usr, pwd):
@@ -66,7 +68,8 @@ class Bot:
         
         try:
             sleep(random.randint(5, 10))            
-            self.driver.find_element_by_xpath('//button[contains(text(), "Following")]').click()            
+            self.driver.find_element_by_xpath('//*[@aria-label="Following"]').click()   
+            sleep(random.randint(2, 5))         
             self.driver.find_element_by_xpath('//button[contains(text(), "Unfollow")]').click()
             print("Unfollowed " + str(usr) + "!")
             return True
@@ -113,10 +116,10 @@ class Bot:
         return users_liked
 
     def explore_tags(self):
-        self.likes = pd.read_csv("../data/logs/likes.csv")
+        self.likes = pd.read_csv(f"{self.project_path}/data/logs/likes.csv")
         self.likes.dropna()
 
-        f = open('../data/config/hashtags.txt', 'r')
+        f = open(f'{self.project_path}/data/config/hashtags.txt', 'r')
         
         hashtags = f.readlines()
         hashtags = [tag.rstrip('\n') for tag in hashtags]
@@ -139,10 +142,10 @@ class Bot:
             self.likes = self.likes.append(df, ignore_index=True)
 
             self.likes.dropna()
-            self.likes.to_csv('../data/logs/likes.csv', index=False)
+            self.likes.to_csv(f'{self.project_path}/data/logs/likes.csv', index=False)
 
     def follow_users(self):
-        self.follows = pd.read_csv("../data/logs/follows.csv")
+        self.follows = pd.read_csv(f"{self.project_path}/data/logs/follows.csv")
         self.follows.dropna()
 
         today = self.likes.loc[self.likes['Date'] == dt.datetime.now().strftime("%Y-%m-%d")]
@@ -160,10 +163,10 @@ class Bot:
         print("Finished following!")
 
         self.follows.dropna()
-        self.follows.to_csv('../data/logs/follows.csv', index=False)
+        self.follows.to_csv(f'{self.project_path}/data/logs/follows.csv', index=False)
 
     def unfollow_users(self):
-        self.follows = pd.read_csv("../data/logs/follows.csv")
+        self.follows = pd.read_csv(f"{self.project_path}/data/logs/follows.csv")
         
         date = (dt.datetime.today() - dt.timedelta(days=DAYS_TO_UNFOLLOW)).date().strftime("%Y-%m-%d")
 
@@ -181,4 +184,4 @@ class Bot:
                 }, ignore_index=True)
 
         self.unfollows.dropna()
-        self.unfollows.to_csv("../data/logs/unfollows.csv", index=False)
+        self.unfollows.to_csv(f"{self.project_path}/data/logs/unfollows.csv", index=False)
