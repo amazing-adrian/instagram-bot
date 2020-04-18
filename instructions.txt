@@ -1,6 +1,7 @@
 =========================================IMPORTANT=========================================
 
-It is strongly recommended to limit the bot's follow and unfollow numbers to under 100 a day. The number of posts liked should also be within reasonable human boundaries. No human would like 200 posts in an hour.
+It is strongly recommended to limit the bot's follow and unfollow numbers to under 100 a day. The number of posts liked should also be within reasonable human boundaries.
+No human would like 200 posts in an hour.
 
 
 =========================================SETUP=========================================
