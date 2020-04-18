@@ -18,26 +18,4 @@ The time it takes for the bot to run depends heavily on the amount of interactio
 For example if it has to like 15 posts from 9 different hashtags, then follow 30 accounts and unfollow the same number of accounts, then the process would take on average about 50 minutes.
 
 
-=========================================IMPORTANT=========================================
-
-It is strongly recommended to limit the bot's follow and unfollow numbers to under 100 a day. The number of posts liked should also be within reasonable human boundaries. No human would like 200 posts in an hour.
-
-
-=========================================SETUP=========================================
-1)Go to instabot/conf/cfg.py and set the username and password.
-    Here you will also be able to configure the number of likes per hashtag, the number of users to follow and the number of days that the followed accounts stay followed.
-
-    MIN_LIKES_PER_TAG - the minimum number of posts to like from each hashtag
-    MAX_LIKES_PER_TAG - the maximum number of posts to like from each hashtag
-    (These 2 values are used to prevent a pattern that can easily be detected by Instagram's bot detection algorithm)
-
-    USERS_TO_FOLLOW - the number of users to follow from today's liked posts in the previous step
-    DAYS_TO_UNFOLLOW - the number of days the users from previous step remain followed
-
-2) Go to data/config/hashtags.txt and introduce the hashtags desired, one hashtag on each line. It should look like this:
-
-beauty
-cute
-fitness
-finance
-
+The setup is explained in-depth in 'instructions.txt' file.
