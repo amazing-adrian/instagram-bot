@@ -1,4 +1,4 @@
-Hello everyone, thanks for taking a look at this project of mine!
+Hello everyone, thanks for taking interest in this project!
 
 The bot has 3 steps every run:
     1)It likes a number of posts from a list of hashtags, both the number and the list being specified by the user.
